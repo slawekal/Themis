@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Themis.Dsl", "Themis.Dsl\Themis.Dsl.csproj", "{C8E44433-C769-4C84-8F2F-2012F8365EF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Themis.Package", "Themis.Package\Themis.Package.csproj", "{16D3AD9A-3F77-493A-B18D-9EC513467736}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Themis.Package.IntegrationTests", "Themis.Package.IntegrationTests\Themis.Package.IntegrationTests.csproj", "{126CCB97-6002-4B8F-808E-71049BEB6124}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C8E44433-C769-4C84-8F2F-2012F8365EF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8E44433-C769-4C84-8F2F-2012F8365EF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8E44433-C769-4C84-8F2F-2012F8365EF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8E44433-C769-4C84-8F2F-2012F8365EF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16D3AD9A-3F77-493A-B18D-9EC513467736}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16D3AD9A-3F77-493A-B18D-9EC513467736}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16D3AD9A-3F77-493A-B18D-9EC513467736}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16D3AD9A-3F77-493A-B18D-9EC513467736}.Release|Any CPU.Build.0 = Release|Any CPU
+		{126CCB97-6002-4B8F-808E-71049BEB6124}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{126CCB97-6002-4B8F-808E-71049BEB6124}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{126CCB97-6002-4B8F-808E-71049BEB6124}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{126CCB97-6002-4B8F-808E-71049BEB6124}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,7 @@
+﻿<#@ Dsl processor="DslDirectiveProcessor" requires="fileName='..\..\Themis.Dsl\DslDefinition.dsl'" #>
+<#
+	// CmdSet Guid must be defined before master template is included
+	// This Guid must be kept synchronized with the CommandSetId Guid in Constants.tt
+	Guid guidCmdSet = new Guid ("94bfcb0d-6064-4d53-a235-5f35cb74f7d4");
+#>
+<#@ include file="DslPackage\GeneratedVSCT.tt" #>

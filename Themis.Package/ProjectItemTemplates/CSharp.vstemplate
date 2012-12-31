@@ -1,0 +1,17 @@
+﻿<!--DSL Tools Language Template-->
+<VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<TemplateData>
+		<TemplateID>{04c085af-377e-46c6-91ab-77d019c31a65}</TemplateID>
+		<Name Package="{1d69e8bc-61e7-44d0-9b8d-289c8b4afdfc}" ID="103"/>
+		<Description Package="{1d69e8bc-61e7-44d0-9b8d-289c8b4afdfc}" ID="102"/>
+		<Icon Package="{1d69e8bc-61e7-44d0-9b8d-289c8b4afdfc}" ID="201" />
+		<ProjectType>CSharp</ProjectType>
+		<SortOrder>360</SortOrder>
+		<DefaultName>Themis.tmpd</DefaultName>
+	</TemplateData>
+	<TemplateContent>
+		<ProjectItem TargetFileName="$fileinputname$.tmpd">tmpd.tmpd</ProjectItem>
+		<ProjectItem TargetFileName="$fileinputname$.tmpd.diagram">tmpd.diagram</ProjectItem>
+	</TemplateContent>
+</VSTemplate>
+
