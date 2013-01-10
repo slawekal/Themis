@@ -47,10 +47,6 @@ namespace Themis
 		/// item filters.
 		/// </remarks>
 		public const string ToolboxFilterString = "Themis.1.0";
-		/// <summary>
-		/// Toolbox item filter string used to identify Mapping connector tool.
-		/// </summary>
-		public const string MappingFilterString = "Mapping.1.0";
 
 	
 		private global::System.Collections.Generic.Dictionary<string, DslDesign::ModelingToolboxItem> toolboxItemCache = new global::System.Collections.Generic.Dictionary<string, DslDesign::ModelingToolboxItem>();
@@ -98,7 +94,7 @@ namespace Themis
 		{
 			get
 			{
-				return 2;
+				return 1;
 			}
 		}
 		
@@ -161,24 +157,6 @@ namespace Themis
 						CreateElementToolPrototype(store, global::Themis.ObjectElement.DomainClassId), // ElementGroupPrototype (data object) representing model element on the toolbox.
 						new global::System.ComponentModel.ToolboxItemFilterAttribute[] { // Collection of ToolboxItemFilterAttribute objects that determine visibility of the toolbox item.
 						new global::System.ComponentModel.ToolboxItemFilterAttribute(ToolboxFilterString, global::System.ComponentModel.ToolboxItemFilterType.Require) 
-						});
-					break;
-				case "Themis.MappingToolboxItem":
-
-					// Add Mapping connector tool.
-					result = new DslDesign::ModelingToolboxItem(
-						"Themis.MappingToolboxItem", // Unique identifier (non-localized) for the toolbox item.
-						2, // Position relative to other items in the same toolbox tab.
-						resourceManager.GetString("MappingToolboxItem", resourceCulture), // Localized display name for the item.
-						(global::System.Drawing.Bitmap)DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("MappingToolboxBitmap", resourceCulture)), // Image displayed next to the toolbox item.				
-						"Themis.ThemisToolboxTab", // Unique identifier (non-localized) for the toolbox item tab.
-						resourceManager.GetString("ThemisToolboxTab", resourceCulture), // Localized display name for the toolbox tab.
-						"ConnectExampleRelationF1Keyword", // F1 help keyword for the toolbox item.
-						resourceManager.GetString("MappingToolboxTooltip", resourceCulture), // Localized tooltip text for the toolbox item.
-						null, // Connector toolbox items do not have an underlying data object.
-						new global::System.ComponentModel.ToolboxItemFilterAttribute[] { // Collection of ToolboxItemFilterAttribute objects that determine visibility of the toolbox item.
-							new global::System.ComponentModel.ToolboxItemFilterAttribute(ToolboxFilterString, global::System.ComponentModel.ToolboxItemFilterType.Require), 
-							new global::System.ComponentModel.ToolboxItemFilterAttribute(MappingFilterString)
 						});
 					break;
 				default:

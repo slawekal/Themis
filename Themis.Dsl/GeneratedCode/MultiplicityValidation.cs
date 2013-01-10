@@ -10,37 +10,5 @@
 using DslModeling = global::Microsoft.VisualStudio.Modeling;
 using DslDesign = global::Microsoft.VisualStudio.Modeling.Design;
 using DslValidation = global::Microsoft.VisualStudio.Modeling.Validation;
-namespace Themis
-{
-	[DslValidation::ValidationState(DslValidation::ValidationState.Enabled)]
-	public partial class ObjectElement
-	{
-		/// <summary>
-		/// Checks that the relationships that have a multiplicity of One or OneMany do actually have a link.
-		/// </summary>
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Generated code.")]
-		[DslValidation::ValidationMethod(DslValidation::ValidationCategories.Open | DslValidation::ValidationCategories.Save | DslValidation::ValidationCategories.Menu)]
-		private void ValidateObjectElementMultiplicity (DslValidation::ValidationContext context)
-		{
-			if (this.Target == null)
-			{
-				context.LogViolation(DslValidation::ViolationType.Error,
-					string.Format(global::System.Globalization.CultureInfo.CurrentCulture, 
-						Themis.ThemisDomainModel.SingletonResourceManager.GetString("MinimumMultiplicityMissingLink"), 
-						"ObjectElement", this.Name, "Target"),
-						"DSL0001", this);
-			}
-			if (this.Source == null)
-			{
-				context.LogViolation(DslValidation::ViolationType.Error,
-					string.Format(global::System.Globalization.CultureInfo.CurrentCulture, 
-						Themis.ThemisDomainModel.SingletonResourceManager.GetString("MinimumMultiplicityMissingLink"), 
-						"ObjectElement", this.Name, "Source"),
-						"DSL0001", this);
-			}
-		} // ValidateObjectElementMultiplicity
-	} // class ObjectElement
-} // Themis
-
 	
  

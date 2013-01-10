@@ -6,16 +6,8 @@ using Microsoft.VsSDK.IntegrationTestLibrary;
 namespace Themis.Package.IntegrationTests
 {
     [TestClass]
-    public class EditorTest
+    public class EditorTest : BaseTest
     {
-        private delegate void ThreadInvoker();
-
-        /// <summary>
-        ///     Gets or sets the test context which provides
-        ///     information about and functionality for the current test run.
-        /// </summary>
-        public TestContext TestContext { get; set; }
-
         /// <summary>
         ///     A test for opening the editor
         /// </summary>
@@ -27,26 +19,28 @@ namespace Themis.Package.IntegrationTests
                 (ThreadInvoker)
                 delegate
                     {
-                        TestUtils testUtils = new TestUtils();
+                        var testUtils = new TestUtils();
                         testUtils.CloseCurrentSolution(__VSSLNSAVEOPTIONS.SLNSAVEOPT_NoSave);
                         testUtils.CreateEmptySolution(TestContext.TestDir, "CreateEmptySolution");
 
                         //Add new file to the solution and save all
-                        string name = "mynewfile";
+                        const string name = "mynewfile";
                         EnvDTE.DTE dte = VsIdeTestHostContext.Dte;
                         EnvDTE.Window win =
-                            dte.ItemOperations.NewFile(@"Themis Mappings Editor Files\Themis Mappings Editor", name,
-                                                       EnvDTE.Constants.vsViewKindPrimary);
+                            dte.ItemOperations.NewFile(
+                                @"Themis Mappings Editor Files\Themis Mappings Editor", name);
                         Assert.IsNotNull(win);
                         dte.ExecuteCommand("File.SaveAll", string.Empty);
 
                         //get the currect misc files state
-                        object OriginalValueMiscFilesSavesLastNItems =
-                            dte.get_Properties("Environment", "Documents").Item("MiscFilesProjectSavesLastNItems").Value;
-                        if ((int) OriginalValueMiscFilesSavesLastNItems == 0)
+                        var property =
+                            dte.Properties["Environment", "Documents"]
+                                .Item("MiscFilesProjectSavesLastNItems");
+                        object originalValueMiscFilesSavesLastNItems = property.Value;
+                        if (originalValueMiscFilesSavesLastNItems != null &&
+                            (int) originalValueMiscFilesSavesLastNItems == 0)
                         {
-                            dte.get_Properties("Environment", "Documents").Item("MiscFilesProjectSavesLastNItems").Value
-                                = 5;
+                            property.Value = 5;
                         }
 
                         //get a handle to the project item in the solution explorer
@@ -54,14 +48,16 @@ namespace Themis.Package.IntegrationTests
                         Assert.IsNotNull(item);
 
                         //close window
-                        win.Close(EnvDTE.vsSaveChanges.vsSaveChangesNo);
+                        win.Close();
 
                         //reset the miscfiles property if it was modified
-                        if (OriginalValueMiscFilesSavesLastNItems !=
-                            dte.get_Properties("Environment", "Documents").Item("MiscFilesProjectSavesLastNItems").Value)
+                        property =
+                            dte.Properties["Environment", "Documents"]
+                                .Item("MiscFilesProjectSavesLastNItems");
+                        if (property != null &&
+                            originalValueMiscFilesSavesLastNItems != property.Value)
                         {
-                            dte.get_Properties("Environment", "Documents").Item("MiscFilesProjectSavesLastNItems").Value
-                                = OriginalValueMiscFilesSavesLastNItems;
+                            property.Value = originalValueMiscFilesSavesLastNItems;
                         }
                     });
         }

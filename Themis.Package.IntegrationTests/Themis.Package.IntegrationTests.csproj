@@ -58,6 +58,7 @@
     <!---->
     <!---->
     <!---->
+    <Compile Include="BaseTest.cs" />
     <Compile Include="EditorTest.cs" />
     <!---->
     <Compile Include="PackageTest.cs" />

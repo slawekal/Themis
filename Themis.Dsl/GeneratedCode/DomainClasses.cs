@@ -308,43 +308,5 @@ namespace Themis
 			}
 		}
 		#endregion
-		#region Target opposite domain role accessor
-		/// <summary>
-		/// Gets or sets Target.
-		/// Description for Themis.ExampleRelationship.Target
-		/// </summary>
-		public virtual ObjectElement Target
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Themis.SourceObjectElementReferencesTargetObjectElement.SourceDomainRoleId) as ObjectElement;
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Themis.SourceObjectElementReferencesTargetObjectElement.SourceDomainRoleId, value);
-			}
-		}
-		#endregion
-		#region Source opposite domain role accessor
-		/// <summary>
-		/// Gets or sets Source.
-		/// Description for Themis.ExampleRelationship.Source
-		/// </summary>
-		public virtual ObjectElement Source
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Themis.SourceObjectElementReferencesTargetObjectElement.TargetDomainRoleId) as ObjectElement;
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Themis.SourceObjectElementReferencesTargetObjectElement.TargetDomainRoleId, value);
-			}
-		}
-		#endregion
 	}
 }

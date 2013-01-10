@@ -70,12 +70,9 @@ namespace Themis
 				typeof(MappingModel),
 				typeof(ObjectElement),
 				typeof(MappingModelHasObjectElements),
-				typeof(SourceObjectElementReferencesTargetObjectElement),
 				typeof(Diagram),
-				typeof(Mapping),
 				typeof(Object),
 				typeof(global::Themis.FixUpDiagram),
-				typeof(global::Themis.ConnectorRolePlayerChanged),
 			};
 		}
 		/// <summary>
@@ -100,8 +97,6 @@ namespace Themis
 			{
 				new DomainRolePlayerInfo(typeof(MappingModelHasObjectElements), "MappingModel", MappingModelHasObjectElements.MappingModelDomainRoleId),
 				new DomainRolePlayerInfo(typeof(MappingModelHasObjectElements), "Element", MappingModelHasObjectElements.ElementDomainRoleId),
-				new DomainRolePlayerInfo(typeof(SourceObjectElementReferencesTargetObjectElement), "Source", SourceObjectElementReferencesTargetObjectElement.SourceDomainRoleId),
-				new DomainRolePlayerInfo(typeof(SourceObjectElementReferencesTargetObjectElement), "Target", SourceObjectElementReferencesTargetObjectElement.TargetDomainRoleId),
 			};
 		}
 		#endregion
@@ -123,12 +118,11 @@ namespace Themis
 	
 			if (createElementMap == null)
 			{
-				createElementMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(5);
+				createElementMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(4);
 				createElementMap.Add(typeof(MappingModel), 0);
 				createElementMap.Add(typeof(ObjectElement), 1);
 				createElementMap.Add(typeof(Diagram), 2);
-				createElementMap.Add(typeof(Mapping), 3);
-				createElementMap.Add(typeof(Object), 4);
+				createElementMap.Add(typeof(Object), 3);
 			}
 			int index;
 			if (!createElementMap.TryGetValue(elementType, out index))
@@ -145,8 +139,7 @@ namespace Themis
 				case 0: return new MappingModel(partition, propertyAssignments);
 				case 1: return new ObjectElement(partition, propertyAssignments);
 				case 2: return new Diagram(partition, propertyAssignments);
-				case 3: return new Mapping(partition, propertyAssignments);
-				case 4: return new Object(partition, propertyAssignments);
+				case 3: return new Object(partition, propertyAssignments);
 				default: return null;
 			}
 		}
@@ -169,9 +162,8 @@ namespace Themis
 	
 			if (createElementLinkMap == null)
 			{
-				createElementLinkMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(2);
+				createElementLinkMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(1);
 				createElementLinkMap.Add(typeof(MappingModelHasObjectElements), 0);
-				createElementLinkMap.Add(typeof(SourceObjectElementReferencesTargetObjectElement), 1);
 			}
 			int index;
 			if (!createElementLinkMap.TryGetValue(elementLinkType, out index))
@@ -187,7 +179,6 @@ namespace Themis
 			switch (index)
 			{
 				case 0: return new MappingModelHasObjectElements(partition, roleAssignments, propertyAssignments);
-				case 1: return new SourceObjectElementReferencesTargetObjectElement(partition, roleAssignments, propertyAssignments);
 				default: return null;
 			}
 		}
@@ -308,7 +299,6 @@ namespace Themis
 			
 			DslModeling::RuleManager ruleManager = store.RuleManager;
 			ruleManager.EnableRule(typeof(global::Themis.FixUpDiagram));
-			ruleManager.EnableRule(typeof(global::Themis.ConnectorRolePlayerChanged));
 		}
 		
 		/// <summary>
@@ -320,7 +310,6 @@ namespace Themis
 			
 			DslModeling::RuleManager ruleManager = store.RuleManager;
 			ruleManager.DisableRule(typeof(global::Themis.FixUpDiagram));
-			ruleManager.DisableRule(typeof(global::Themis.ConnectorRolePlayerChanged));
 		}
 		#endregion
 	}

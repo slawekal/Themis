@@ -41,22 +41,6 @@
         </DomainRole>
       </Target>
     </DomainRelationship>
-    <DomainRelationship Id="2293e3c0-869a-4373-95d8-ffa99cc366e9" Description="Reference relationship between Elements." Name="SourceObjectElementReferencesTargetObjectElement" DisplayName="Source Object Element References Target Object Element" Namespace="Themis">
-      <Source>
-        <DomainRole Id="c73fc6d2-5b33-4e83-b186-dc3ee75146d6" Description="Description for Themis.ExampleRelationship.Target" Name="Source" DisplayName="Source" PropertyName="Target" Multiplicity="One" PropertyDisplayName="Target">
-          <RolePlayer>
-            <DomainClassMoniker Name="ObjectElement" />
-          </RolePlayer>
-        </DomainRole>
-      </Source>
-      <Target>
-        <DomainRole Id="869113b4-f3a5-4671-8b56-681ff522622c" Description="Description for Themis.ExampleRelationship.Source" Name="Target" DisplayName="Target" PropertyName="Source" Multiplicity="One" PropertyDisplayName="Source">
-          <RolePlayer>
-            <DomainClassMoniker Name="ObjectElement" />
-          </RolePlayer>
-        </DomainRole>
-      </Target>
-    </DomainRelationship>
   </Relationships>
   <Types>
     <ExternalType Name="DateTime" Namespace="System" />
@@ -82,9 +66,6 @@
       </ShapeHasDecorators>
     </GeometryShape>
   </Shapes>
-  <Connectors>
-    <Connector Id="fd165c92-8a9a-4442-a61a-6bfc34395ec9" Description="Mapping of the Source Object onto the Target Object. " Name="Mapping" DisplayName="Mapping" Namespace="Themis" FixedTooltipText="Mapping" Color="113, 111, 110" TargetEndStyle="EmptyArrow" Thickness="0.01" />
-  </Connectors>
   <XmlSerializationBehavior Name="ThemisSerializationBehavior" Namespace="Themis">
     <ClassData>
       <XmlClassData TypeName="MappingModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="mappingModelMoniker" ElementName="mappingModel" MonikerTypeName="MappingModelMoniker">
@@ -101,22 +82,13 @@
           <XmlPropertyData XmlName="name" IsMonikerKey="true">
             <DomainPropertyMoniker Name="ObjectElement/Name" />
           </XmlPropertyData>
-          <XmlRelationshipData RoleElementName="target">
-            <DomainRelationshipMoniker Name="SourceObjectElementReferencesTargetObjectElement" />
-          </XmlRelationshipData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="MappingModelHasObjectElements" MonikerAttributeName="" SerializeId="true" MonikerElementName="mappingModelHasObjectElementsMoniker" ElementName="mappingModelHasObjectElements" MonikerTypeName="MappingModelHasObjectElementsMoniker">
         <DomainRelationshipMoniker Name="MappingModelHasObjectElements" />
       </XmlClassData>
-      <XmlClassData TypeName="SourceObjectElementReferencesTargetObjectElement" MonikerAttributeName="" SerializeId="true" MonikerElementName="sourceObjectElementReferencesTargetObjectElementMoniker" ElementName="sourceObjectElementReferencesTargetObjectElement" MonikerTypeName="SourceObjectElementReferencesTargetObjectElementMoniker">
-        <DomainRelationshipMoniker Name="SourceObjectElementReferencesTargetObjectElement" />
-      </XmlClassData>
       <XmlClassData TypeName="Object" MonikerAttributeName="" SerializeId="true" MonikerElementName="objectMoniker" ElementName="object" MonikerTypeName="ObjectMoniker">
         <GeometryShapeMoniker Name="Object" />
-      </XmlClassData>
-      <XmlClassData TypeName="Mapping" MonikerAttributeName="" SerializeId="true" MonikerElementName="mappingMoniker" ElementName="mapping" MonikerTypeName="MappingMoniker">
-        <ConnectorMoniker Name="Mapping" />
       </XmlClassData>
       <XmlClassData TypeName="Diagram" MonikerAttributeName="" SerializeId="true" MonikerElementName="diagramMoniker" ElementName="diagram" MonikerTypeName="DiagramMoniker">
         <DiagramMoniker Name="Diagram" />
@@ -124,28 +96,6 @@
     </ClassData>
   </XmlSerializationBehavior>
   <ExplorerBehavior Name="ThemisExplorer" />
-  <ConnectionBuilders>
-    <ConnectionBuilder Name="SourceObjectElementReferencesTargetObjectElementBuilder">
-      <Notes>Provides for the creation of an ExampleRelationship by pointing at two ExampleElements.</Notes>
-      <LinkConnectDirective>
-        <DomainRelationshipMoniker Name="SourceObjectElementReferencesTargetObjectElement" />
-        <SourceDirectives>
-          <RolePlayerConnectDirective>
-            <AcceptingClass>
-              <DomainClassMoniker Name="ObjectElement" />
-            </AcceptingClass>
-          </RolePlayerConnectDirective>
-        </SourceDirectives>
-        <TargetDirectives>
-          <RolePlayerConnectDirective>
-            <AcceptingClass>
-              <DomainClassMoniker Name="ObjectElement" />
-            </AcceptingClass>
-          </RolePlayerConnectDirective>
-        </TargetDirectives>
-      </LinkConnectDirective>
-    </ConnectionBuilder>
-  </ConnectionBuilders>
   <Diagram Id="d0d95359-76b7-4abf-a63f-53561f172dcb" Description="" Name="Diagram" DisplayName="Object Mapping Diagram" Namespace="Themis">
     <Class>
       <DomainClassMoniker Name="MappingModel" />
@@ -167,12 +117,6 @@
         <GeometryShapeMoniker Name="Object" />
       </ShapeMap>
     </ShapeMaps>
-    <ConnectorMaps>
-      <ConnectorMap>
-        <ConnectorMoniker Name="Mapping" />
-        <DomainRelationshipMoniker Name="SourceObjectElementReferencesTargetObjectElement" />
-      </ConnectorMap>
-    </ConnectorMaps>
   </Diagram>
   <Designer CopyPasteGeneration="CopyPasteOnly" FileExtension="tmpd" EditorGuid="303d514b-71d6-4416-834c-801128e7880b">
     <RootClass>
@@ -185,9 +129,6 @@
       <ElementTool Name="Object" ToolboxIcon="resources\exampleshapetoolbitmap.bmp" Caption="Object" Tooltip="Create an ObjectElement" HelpKeyword="CreateExampleClassF1Keyword">
         <DomainClassMoniker Name="ObjectElement" />
       </ElementTool>
-      <ConnectionTool Name="Mapping" ToolboxIcon="resources\exampleconnectortoolbitmap.bmp" Caption="Mapping" Tooltip="Drag between ExampleElements to create an ExampleRelationship" HelpKeyword="ConnectExampleRelationF1Keyword">
-        <ConnectionBuilderMoniker Name="Themis/SourceObjectElementReferencesTargetObjectElementBuilder" />
-      </ConnectionTool>
     </ToolboxTab>
     <Validation UsesMenu="false" UsesOpen="false" UsesSave="false" UsesLoad="false" />
     <DiagramMoniker Name="Diagram" />

@@ -97,91 +97,6 @@ namespace Themis
 			return true;
 		}
 		
-		/// <summary>
-		/// Called during view fixup to configure the given child element, after it has been created.
-		/// </summary>
-		/// <remarks>
-		/// Custom code for choosing the shapes attached to either end of a connector is called from here.
-		/// </remarks>
-		protected override void OnChildConfiguring(DslDiagrams::ShapeElement child, bool createdDuringViewFixup)
-		{
-			DslDiagrams::NodeShape sourceShape;
-			DslDiagrams::NodeShape targetShape;
-			DslDiagrams::BinaryLinkShape connector = child as DslDiagrams::BinaryLinkShape;
-			if(connector == null)
-			{
-				base.OnChildConfiguring(child, createdDuringViewFixup);
-				return;
-			}
-			this.GetSourceAndTargetForConnector(connector, out sourceShape, out targetShape);
-			
-			global::System.Diagnostics.Debug.Assert(sourceShape != null && targetShape != null, "Unable to find source and target shapes for connector.");
-			connector.Connect(sourceShape, targetShape);
-		}
-		
-		/// <summary>
-		/// helper method to find the shapes for either end of a connector, including calling the user's custom code
-		/// </summary>
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
-		internal void GetSourceAndTargetForConnector(DslDiagrams::BinaryLinkShape connector, out DslDiagrams::NodeShape sourceShape, out DslDiagrams::NodeShape targetShape)
-		{
-			sourceShape = null;
-			targetShape = null;
-			
-			if (sourceShape == null || targetShape == null)
-			{
-				DslDiagrams::NodeShape[] endShapes = GetEndShapesForConnector(connector);
-				if(sourceShape == null)
-				{
-					sourceShape = endShapes[0];
-				}
-				if(targetShape == null)
-				{
-					targetShape = endShapes[1];
-				}
-			}
-		}
-		
-		/// <summary>
-		/// Helper method to find shapes for either end of a connector by looking for shapes associated with either end of the relationship mapped to the connector.
-		/// </summary>
-		private DslDiagrams::NodeShape[] GetEndShapesForConnector(DslDiagrams::BinaryLinkShape connector)
-		{
-			DslModeling::ElementLink link = connector.ModelElement as DslModeling::ElementLink;
-			DslDiagrams::NodeShape sourceShape = null, targetShape = null;
-			if (link != null)
-			{
-				global::System.Collections.ObjectModel.ReadOnlyCollection<DslModeling::ModelElement> linkedElements = link.LinkedElements;
-				if (linkedElements.Count == 2)
-				{
-					DslDiagrams::Diagram currentDiagram = this.Diagram;
-					DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> presentationElements = DslDiagrams::PresentationViewsSubject.GetPresentation(linkedElements[0]);
-					foreach (DslDiagrams::PresentationElement presentationElement in presentationElements)
-					{
-						DslDiagrams::NodeShape shape = presentationElement as DslDiagrams::NodeShape;
-						if (shape != null && shape.Diagram == currentDiagram)
-						{
-							sourceShape = shape;
-							break;
-						}
-					}
-					
-					presentationElements = DslDiagrams::PresentationViewsSubject.GetPresentation(linkedElements[1]);
-					foreach (DslDiagrams::PresentationElement presentationElement in presentationElements)
-					{
-						DslDiagrams::NodeShape shape = presentationElement as DslDiagrams::NodeShape;
-						if (shape != null && shape.Diagram == currentDiagram)
-						{
-							targetShape = shape;
-							break;
-						}
-					}
-		
-				}
-			}
-			
-			return new DslDiagrams::NodeShape[] { sourceShape, targetShape };
-		}
 		
 		/// <summary>
 		/// Creates a new shape for the given model element as part of view fixup
@@ -194,11 +109,6 @@ namespace Themis
 			{
 				global::Themis.Object newShape = new global::Themis.Object(this.Partition);
 				if(newShape != null) newShape.Size = newShape.DefaultSize; // set default shape size
-				return newShape;
-			}
-			if(element is global::Themis.SourceObjectElementReferencesTargetObjectElement)
-			{
-				global::Themis.Mapping newShape = new global::Themis.Mapping(this.Partition);
 				return newShape;
 			}
 			return base.CreateChildShape(element);
@@ -234,110 +144,6 @@ namespace Themis
 		}
 		
 		#endregion
-		
-		#region Connect actions
-		private bool changingMouseAction;
-		private global::Themis.MappingConnectAction mappingConnectAction;
-		/// <summary>
-		/// Virtual method to provide a filter when to select the mouse action
-		/// </summary>
-		/// <param name="activeView">Currently active view</param>
-		/// <param name="filter">filter string used to filter the toolbox items</param>
-		protected virtual bool SelectedToolboxItemSupportsFilterString(DslDiagrams::DiagramView activeView, string filter)
-		{
-			return activeView.SelectedToolboxItemSupportsFilterString(filter);
-		}
-		/// <summary>
-		/// Override to provide the right mouse action when trying
-		/// to create links on the diagram
-		/// </summary>
-		/// <param name="pointArgs"></param>
-		public override void OnViewMouseEnter(DslDiagrams::DiagramPointEventArgs pointArgs)
-		{
-			if (pointArgs  == null) throw new global::System.ArgumentNullException("pointArgs");
-		
-			DslDiagrams::DiagramView activeView = this.ActiveDiagramView;
-			if(activeView != null)
-			{
-				DslDiagrams::MouseAction action = null;
-				if (SelectedToolboxItemSupportsFilterString(activeView, global::Themis.ThemisToolboxHelper.MappingFilterString))
-				{
-					if (this.mappingConnectAction == null)
-					{
-						this.mappingConnectAction = new global::Themis.MappingConnectAction(this);
-						this.mappingConnectAction.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(OnConnectActionDeactivated);
-					}
-					action = this.mappingConnectAction;
-				} 
-				else
-				{
-					action = null;
-				}
-				
-				if (pointArgs.DiagramClientView.ActiveMouseAction != action)
-				{
-					try
-					{
-						this.changingMouseAction = true;
-						pointArgs.DiagramClientView.ActiveMouseAction = action;
-					}
-					finally
-					{
-						this.changingMouseAction = false;
-					}
-				}
-			}
-		}
-		
-		/// <summary>
-		/// Snap toolbox selection back to regular pointer after using a custom connect action.
-		/// </summary>
-		private void OnConnectActionDeactivated(object sender, DslDiagrams::DiagramEventArgs e)
-		{
-			OnMouseActionDeactivated();
-		}
-		
-		/// <summary>
-		/// Overridable method to manage the mouse deactivation. The default implementation snap stoolbox selection back to regular pointer 
-		/// after using a custom connect action.
-		/// </summary>
-		protected virtual void OnMouseActionDeactivated()
-		{
-			DslDiagrams::DiagramView activeView = this.ActiveDiagramView;
-		
-			if (activeView != null && activeView.Toolbox != null)
-			{
-				// If we're not changing mouse action due to changing toolbox selection change,
-				// reset toolbox selection.
-				if (!this.changingMouseAction)
-				{
-					activeView.Toolbox.SelectedToolboxItemUsed();
-				}
-			}
-		}
-		#endregion
-		
-		/// <summary>
-		/// Dispose of connect actions.
-		/// </summary>
-		protected override void Dispose(bool disposing)
-		{
-			try
-			{
-				if(disposing)
-				{
-					if(this.mappingConnectAction != null)
-					{
-						this.mappingConnectAction.Dispose();
-						this.mappingConnectAction = null;
-					}
-				}
-			}
-			finally
-			{
-				base.Dispose(disposing);
-			}
-		}
 		#region Constructors, domain class Id
 	
 		/// <summary>
@@ -385,7 +191,6 @@ namespace Themis
 		/// Rule that initiates view fixup when an element that has an associated shape is added to the model. 
 		/// </summary>
 		[DslModeling::RuleOn(typeof(global::Themis.ObjectElement), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Themis.SourceObjectElementReferencesTargetObjectElement), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		internal sealed partial class FixUpDiagram : FixUpDiagramBase
 		{
 			[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
@@ -397,10 +202,6 @@ namespace Themis
 				if (this.SkipFixup(childElement))
 					return;
 				DslModeling::ModelElement parentElement;
-				if(childElement is DslModeling::ElementLink)
-				{
-					parentElement = GetParentForRelationship((DslModeling::ElementLink)childElement);
-				} else
 				if(childElement is global::Themis.ObjectElement)
 				{
 					parentElement = GetParentForObjectElement((global::Themis.ObjectElement)childElement);
@@ -421,145 +222,7 @@ namespace Themis
 				if ( result == null ) return null;
 				return result;
 			}
-			private static DslModeling::ModelElement GetParentForRelationship(DslModeling::ElementLink elementLink)
-			{
-				global::System.Collections.ObjectModel.ReadOnlyCollection<DslModeling::ModelElement> linkedElements = elementLink.LinkedElements;
-	
-				if (linkedElements.Count == 2)
-				{
-					DslDiagrams::ShapeElement sourceShape = linkedElements[0] as DslDiagrams::ShapeElement;
-					DslDiagrams::ShapeElement targetShape = linkedElements[1] as DslDiagrams::ShapeElement;
-	
-					if(sourceShape == null)
-					{
-						DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> presentationElements = DslDiagrams::PresentationViewsSubject.GetPresentation(linkedElements[0]);
-						foreach (DslDiagrams::PresentationElement presentationElement in presentationElements)
-						{
-							DslDiagrams::ShapeElement shape = presentationElement as DslDiagrams::ShapeElement;
-							if (shape != null)
-							{
-								sourceShape = shape;
-								break;
-							}
-						}
-					}
-					
-					if(targetShape == null)
-					{
-						DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> presentationElements = DslDiagrams::PresentationViewsSubject.GetPresentation(linkedElements[1]);
-						foreach (DslDiagrams::PresentationElement presentationElement in presentationElements)
-						{
-							DslDiagrams::ShapeElement shape = presentationElement as DslDiagrams::ShapeElement;
-							if (shape != null)
-							{
-								targetShape = shape;
-								break;
-							}
-						}
-					}
-					
-					if(sourceShape == null || targetShape == null)
-					{
-						global::System.Diagnostics.Debug.Fail("Unable to find source and/or target shape for view fixup.");
-						return null;
-					}
-	
-					DslDiagrams::ShapeElement sourceParent = sourceShape.ParentShape;
-					DslDiagrams::ShapeElement targetParent = targetShape.ParentShape;
-	
-					while (sourceParent != targetParent && sourceParent != null)
-					{
-						DslDiagrams::ShapeElement curParent = targetParent;
-						while (sourceParent != curParent && curParent != null)
-						{
-							curParent = curParent.ParentShape;
-						}
-	
-						if(sourceParent == curParent)
-						{
-							break;
-						}
-						else
-						{
-							sourceParent = sourceParent.ParentShape;
-						}
-					}
-	
-					while (sourceParent != null)
-					{
-						// ensure that the parent can parent connectors (i.e., a diagram or a swimlane).
-						if(sourceParent is DslDiagrams::Diagram || sourceParent is DslDiagrams::SwimlaneShape)
-						{
-							break;
-						}
-						else
-						{
-							sourceParent = sourceParent.ParentShape;
-						}
-					}
-	
-					global::System.Diagnostics.Debug.Assert(sourceParent != null && sourceParent.ModelElement != null, "Unable to find common parent for view fixup.");
-					return sourceParent.ModelElement;
-				}
-	
-				return null;
-			}
 		}
 		
 	
-		/// <summary>
-		/// Reroute a connector when the role players of its underlying relationship change
-		/// </summary>
-		[DslModeling::RuleOn(typeof(global::Themis.SourceObjectElementReferencesTargetObjectElement), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
-		internal sealed class ConnectorRolePlayerChanged : DslModeling::RolePlayerChangeRule
-		{
-			/// <summary>
-			/// Reroute a connector when the role players of its underlying relationship change
-			/// </summary>
-			public override void RolePlayerChanged(DslModeling::RolePlayerChangedEventArgs e)
-			{
-				if (e == null) throw new global::System.ArgumentNullException("e");
-	
-				global::System.Collections.ObjectModel.ReadOnlyCollection<DslDiagrams::PresentationViewsSubject> connectorLinks = DslDiagrams::PresentationViewsSubject.GetLinksToPresentation(e.ElementLink);
-				foreach (DslDiagrams::PresentationViewsSubject connectorLink in connectorLinks)
-				{
-					// Fix up any binary link shapes attached to the element link.
-					DslDiagrams::BinaryLinkShape linkShape = connectorLink.Presentation as DslDiagrams::BinaryLinkShape;
-					if (linkShape != null)
-					{
-						global::Themis.Diagram diagram = linkShape.Diagram as global::Themis.Diagram;
-						if (diagram != null)
-						{
-							if (e.NewRolePlayer != null)
-							{
-								DslDiagrams::NodeShape fromShape;
-								DslDiagrams::NodeShape toShape;
-								diagram.GetSourceAndTargetForConnector(linkShape, out fromShape, out toShape);
-								if (fromShape != null && toShape != null)
-								{
-									if (!object.Equals(fromShape, linkShape.FromShape))
-									{
-										linkShape.FromShape = fromShape;
-									}
-									if (!object.Equals(linkShape.ToShape, toShape))
-									{
-										linkShape.ToShape = toShape;
-									}
-								}
-								else
-								{
-									// delete the connector if we cannot find an appropriate target shape.
-									linkShape.Delete();
-								}
-							}
-							else
-							{
-								// delete the connector if the new role player is null.
-								linkShape.Delete();
-							}
-						}
-					}
-				}
-			}
-		}
 	}

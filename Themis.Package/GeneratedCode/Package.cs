@@ -35,13 +35,6 @@ namespace Themis
 					"CreateExampleClassF1Keyword", 
 					"@ObjectToolboxBitmap;Themis.Dsl.dll", 
 					0xff00ff)]
-	[VSShell::ProvideStaticToolboxItem("Themis.ThemisToolboxTab",
-					"@MappingToolboxItem;Themis.Dsl.dll", 
-					"Themis.MappingToolboxItem", 
-					"CF_TOOLBOXITEMCONTAINER,CF_TOOLBOXITEMCONTAINER_HASH,CF_TOOLBOXITEMCONTAINER_CONTENTS", 
-					"ConnectExampleRelationF1Keyword", 
-					"@MappingToolboxBitmap;Themis.Dsl.dll", 
-					0xff00ff)]
 	[VSShell::ProvideEditorFactory(typeof(ThemisEditorFactory), 103, TrustLevel = VSShellInterop::__VSEDITORTRUSTLEVEL.ETL_AlwaysTrusted)]
 	[VSShell::ProvideEditorExtension(typeof(ThemisEditorFactory), "." + Constants.DesignerFileExtension, 50)]
 	[VSShell::ProvideEditorLogicalView(typeof(ThemisEditorFactory), "{7651A702-06E5-11D1-8EBD-00A0C90F26EA}")] // Designer logical view GUID i.e. VSConstants.LOGVIEWID_Designer
