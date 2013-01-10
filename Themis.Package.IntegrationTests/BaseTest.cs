@@ -20,7 +20,7 @@ namespace Themis.Package.IntegrationTests
 
         protected abstract string Language { get; }
 
-        protected void InNewWebFormProject(Action<TestUtils> actionAfterProjectCreated)
+        protected void InNewConsoleProject(Action<TestUtils> actionAfterProjectCreated)
         {
             var projectName = GetProjectName();
 
@@ -46,7 +46,7 @@ namespace Themis.Package.IntegrationTests
                             // Create Winforms application project
                             testUtils.CreateProjectFromTemplate(
                                 "MyWindowsApp",
-                                "Windows Forms Application", Language, false);
+                                "Console Application", Language, false);
                             Assert.AreEqual(1, testUtils.ProjectCount());
 
                             actionAfterProjectCreated(testUtils);

@@ -61,7 +61,6 @@
     <Compile Include="BaseTest.cs" />
     <Compile Include="EditorTest.cs" />
     <!---->
-    <Compile Include="PackageTest.cs" />
     <Compile Include="IntegrationTest Library\DialogboxPurger.cs" />
     <Compile Include="IntegrationTest Library\NativeMethods.cs" />
     <Compile Include="IntegrationTest Library\Utils.cs" />

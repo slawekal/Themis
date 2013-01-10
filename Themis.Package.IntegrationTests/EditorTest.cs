@@ -1,4 +1,7 @@
-﻿//using Microsoft.VSSDK.Tools.VsIdeTesting;
+﻿
+#warning Reuse below code and then delete it
+
+//using Microsoft.VSSDK.Tools.VsIdeTesting;
 //using Microsoft.VisualStudio.Shell.Interop;
 //using Microsoft.VisualStudio.TestTools.UnitTesting;
 //using Microsoft.VsSDK.IntegrationTestLibrary;

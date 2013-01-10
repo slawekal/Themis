@@ -12,9 +12,11 @@ namespace Themis.Package.IntegrationTests
 
         [TestMethod]
         [HostType("VS IDE")]
-        public void WinformsApplication()
+        public void AddOneClassToTheEditor()
         {
-            InNewWebFormProject(testUtils => { });
+            InNewConsoleProject(
+                testUtils =>
+                Assert.Inconclusive("No code to actually add a mapping definition"));
         }
     }
 }
