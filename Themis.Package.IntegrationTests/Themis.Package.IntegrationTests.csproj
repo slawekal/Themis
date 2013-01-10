@@ -65,8 +65,7 @@
     <Compile Include="IntegrationTest Library\DialogboxPurger.cs" />
     <Compile Include="IntegrationTest Library\NativeMethods.cs" />
     <Compile Include="IntegrationTest Library\Utils.cs" />
-    <Compile Include="SignOff-Tests\CSharpProjectTests.cs" />
-    <Compile Include="SignOff-Tests\SolutionTests.cs" />
+    <Compile Include="CSharpProjectTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Key.snk" />
@@ -77,6 +76,7 @@
       <Name>Themis.Package</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

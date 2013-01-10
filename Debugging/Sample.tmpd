@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<mappingModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="6dc2c99c-67e2-49d9-89d5-6c5906387f34" xmlns="http://schemas.microsoft.com/dsltools/Themis">
+  <elements>
+    <objectElement Id="6b7d8c5b-89a9-4829-850f-4b8e46102efb" name="ClassA" />
+    <objectElement Id="9b79995e-988d-4089-a72c-bd78ba4a5808" name="ClassB" />
+  </elements>
+</mappingModel>
