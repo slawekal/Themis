@@ -88,11 +88,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomTool\ThemisMappingDefinitionCustomToolLanguagePackage.cs" />
+    <Compile Include="CustomTool\ThemisMappingDefinitionCustomTool.cs" />
     <Compile Include="GeneratedCode\CommandSet.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CommandSet.tt</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CustomTool\ThemisMappingDefinition.tt" />
     <None Include="source.extension.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>source.extension.vsixmanifest</LastGenOutput>

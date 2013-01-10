@@ -1,1 +1,6 @@
-﻿ 
+﻿<?xml version="1.0" encoding="utf-8"?>
+<mappingModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="e1a67318-84c6-40fe-bbce-2108dbe6809c" xmlns="http://schemas.microsoft.com/dsltools/Themis">
+  <objectElements>
+    <objectElement Id="58db70d9-5005-4f0c-ad32-cc9d5a66b3cc" name="ObjectElement1" />
+  </objectElements>
+</mappingModel>

@@ -1,5 +1,4 @@
 ﻿
 Generated material. Generating code in C#.
 
-	ExampleElement1
-	ExampleElement2
+	ObjectElement1

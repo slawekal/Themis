@@ -1,1 +1,9 @@
-﻿ 
+﻿<?xml version="1.0" encoding="utf-8"?>
+<diagram dslVersion="1.0.0.0" Id="d6bdc0f4-5606-4a9c-9cee-37e3b82f496b" absoluteBounds="0, 0, 11, 8.5" name="Test">
+  <mappingModelMoniker Id="e1a67318-84c6-40fe-bbce-2108dbe6809c" />
+  <nestedChildShapes>
+    <object Id="ea4d32a3-2728-456b-a479-bbf4cab39803" absoluteBounds="2, 1, 2, 0.75">
+      <objectElementMoniker name="/e1a67318-84c6-40fe-bbce-2108dbe6809c/ObjectElement1" />
+    </object>
+  </nestedChildShapes>
+</diagram>
