@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>TestStack.White</id>
+    <version>0.9.1.1</version>
+    <title>TestStack.White</title>
+    <authors>Jake Ginnivan</authors>
+    <owners>Jake Ginnivan</owners>
+    <projectUrl>http://teststack.github.com/White/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>UI Automation Framework</description>
+    <copyright>Copyright Jake Ginnivan 2012</copyright>
+    <tags>UIAutomation Testing</tags>
+    <dependencies>
+      <dependency id="Castle.Core" version="3.0.0.4001" />
+      <dependency id="log4net" version="2.0.0" />
+    </dependencies>
+    <references>
+      <reference file="TestStack.White.dll" />
+    </references>
+  </metadata>
+</package>

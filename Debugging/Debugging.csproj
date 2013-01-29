@@ -43,7 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Test.tmpd">
-      <Generator>ThemisMappingDefinitionCustomTool</Generator>
+      <Generator>ThemisCustomTool</Generator>
       <LastGenOutput>Test.cs</LastGenOutput>
     </None>
     <None Include="Test.tmpd.diagram">

@@ -9,9 +9,17 @@
 		<SortOrder>360</SortOrder>
 		<DefaultName>Themis.tmpd</DefaultName>
 	</TemplateData>
+	<WizardExtension>
+		<Assembly>Microsoft.VSDesigner, Version=9.0.0.0, Culture=Neutral, PublicKeyToken=b03f5f7f11d50a3a</Assembly>
+		<FullClassName>Microsoft.VSDesigner.ProjectWizard.ItemPropertyWizard</FullClassName>
+	</WizardExtension>
 	<TemplateContent>
-		<ProjectItem TargetFileName="$fileinputname$.tmpd">tmpd.tmpd</ProjectItem>
-		<ProjectItem TargetFileName="$fileinputname$.tmpd.diagram">tmpd.diagram</ProjectItem>
+		<ProjectItem ReplaceParameters="true" TargetFileName="$fileinputname$.tmpd">tmpd.tmpd</ProjectItem>
+		<ProjectItem TargetFileName="$fileinputname$.tmpd.diagram" SubType="Designer">tmpd.diagram</ProjectItem>
+		<CustomParameters>
+			<CustomParameter Name="$itemproperties$" Value="CustomTool" />
+			<CustomParameter Name="$CustomTool$" Value="ThemisCustomTool" />
+		</CustomParameters>
 	</TemplateContent>
 </VSTemplate>
 
