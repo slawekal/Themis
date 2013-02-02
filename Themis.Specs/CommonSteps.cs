@@ -5,6 +5,7 @@ using White.Core.UIItems.WindowItems;
 
 namespace Themis.Specs
 {
+    [Binding]
     public class CommonSteps
     {
         protected static Application Application

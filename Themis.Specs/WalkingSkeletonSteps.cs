@@ -1,10 +1,9 @@
-﻿using System;
-using TechTalk.SpecFlow;
+﻿using TechTalk.SpecFlow;
 
 namespace Themis.Specs
 {
     [Binding]
-    public class WalkingSkeletonSteps : CommonSteps
+    public class WalkingSkeletonSteps
     {
         [Then]
         public void ThenMappingDesignerShouldOpenWithAOneDefaultClassCreated()

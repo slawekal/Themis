@@ -7,13 +7,13 @@ namespace Themis.Specs
     public class SetUp
     {
         [SetUp]
-        private void RunBeforeAnyTests()
+        public void RunBeforeAnyTests()
         {
             ApplicationWrapper.Instance.StartApplication();
         }
 
         [TearDown]
-        private void RunAfterAnyTests()
+        public void RunAfterAnyTests()
         {
             ApplicationWrapper.Instance.StopApplication();
         }
