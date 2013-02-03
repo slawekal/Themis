@@ -1,9 +1,14 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using NUnit.Framework;
 using White.Core;
 using White.Core.Configuration;
 using White.Core.Factory;
 using White.Core.UIItems.Finders;
 using White.Core.UIItems.WindowItems;
+using Debug = System.Diagnostics.Debug;
 
 namespace Themis.Specs.Infrastructure
 {
@@ -23,6 +28,7 @@ namespace Themis.Specs.Infrastructure
 
         public Application Application { get; private set; }
         public Window Window { get; private set; }
+        public string ProjectsDirectory { get; private set; }
 
         private ApplicationWrapper()
         {
@@ -48,6 +54,15 @@ namespace Themis.Specs.Infrastructure
             Window = Application.GetWindow(
                 SearchCriteria.ByAutomationId("VisualStudioMainWindow"), InitializeOption.NoCache);
             CoreAppXmlConfiguration.Instance.BusyTimeout = orgBusyTimeout;
+
+            Debug.Assert(
+                TestContext.CurrentContext.TestDirectory != null,
+                "TestContext.CurrentContext.TestDirectory should be not null");
+            ProjectsDirectory =
+                Path.Combine(
+                    Path.GetPathRoot(TestContext.CurrentContext.TestDirectory), "ThemisTestProjects",
+                    "Run" + DateTime.Now.Ticks.ToString(CultureInfo.InvariantCulture));
+            Directory.CreateDirectory(ProjectsDirectory);
         }
 
         public void StopApplication()

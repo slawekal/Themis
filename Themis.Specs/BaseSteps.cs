@@ -19,6 +19,11 @@ namespace Themis.Specs
             get { return ApplicationWrapper.Instance.Window; }
         }
 
+        protected static string ProjectsDirectory
+        {
+            get { return ApplicationWrapper.Instance.ProjectsDirectory; }
+        }
+
         protected static Window GetWindowByAutomationId(string windowAutomationId)
         {
             return Window.ModalWindow(
