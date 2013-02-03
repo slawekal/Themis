@@ -3,7 +3,7 @@
 namespace Themis.Specs
 {
     [Binding]
-    public class WalkingSkeletonSteps
+    public class WalkingSkeletonSteps : BaseSteps
     {
         [Then]
         public void ThenMappingDesignerShouldOpenWithAOneDefaultClassCreated()

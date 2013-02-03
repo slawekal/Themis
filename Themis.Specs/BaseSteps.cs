@@ -4,7 +4,7 @@ using White.Core.UIItems.WindowItems;
 
 namespace Themis.Specs
 {
-    public class TestBase
+    public class BaseSteps
     {
         protected static Application Application
         {

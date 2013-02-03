@@ -1,32 +1,25 @@
-﻿using TechTalk.SpecFlow;
+﻿using NUnit.Framework;
+using TechTalk.SpecFlow;
 using Themis.Specs.Infrastructure;
-using White.Core;
-using White.Core.UIItems.WindowItems;
+using White.Core.WindowsAPI;
 
 namespace Themis.Specs
 {
     [Binding]
-    public class CommonSteps
+    public class CommonSteps : BaseSteps
     {
-        protected static Application Application
-        {
-            get { return ApplicationWrapper.Instance.Application; }
-        }
-
-        protected static Window Window
-        {
-            get { return ApplicationWrapper.Instance.Window; }
-        }
-
         [Given]
         public void GivenIHaveOpenedTheVs()
         {
-            ScenarioContext.Current.Pending();
+            Assert.NotNull(Application);
+            Assert.NotNull(Window);
         }
 
         [Given]
         public void GivenIHaveCreatedANewCSharpClassLibraryProject()
         {
+            Window.PressShortcut('f', KeyboardInput.SpecialKeys.ALT);
+            Window.PressShortcut('n');
             ScenarioContext.Current.Pending();
         }
 
